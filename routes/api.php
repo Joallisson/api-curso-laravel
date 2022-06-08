@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/teste', function(Request $request){
+
+    // dd($request->headers->all());
+    // dd($request->headers->get('Authorization'));
+
+    $response = new \Illuminate\Http\Response(json_encode(['msg' => 'Minha primeira api']));
+    $response->header('Content-Type', 'application/json');
+
+    return $response;
+});
