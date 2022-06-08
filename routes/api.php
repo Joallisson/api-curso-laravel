@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\ProductController;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,4 @@ Route::get('/teste', function(Request $request){
 });
 
 //Products Routes
-Route::get('/products', function(){
-    return \App\Models\Product::all();
-});
+Route::get('/products', [ProductController::class, 'index']);
