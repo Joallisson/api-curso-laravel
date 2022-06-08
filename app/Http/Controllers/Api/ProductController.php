@@ -11,12 +11,28 @@ class ProductController extends Controller
     private $product;
 
     public function __construct(Product $product){
-    $this->product = $product;
+        $this->product = $product;
     }
 
     public function index(){
-    $products = $this->product->all();
 
-    return response()->json($products);
+        $products = $this->product->all();
+
+        return response()->json($products);
+    }
+
+    public function show($id){
+
+        $product = $this->product->find($id);
+
+        return response()->json($product);
+    }
+
+    public function save(Request $request){
+
+        $data = $request->all();
+        $product = $this->product->create($data);
+
+        return response()->json($product);
     }
 }
