@@ -28,3 +28,8 @@ Route::get('/teste', function(Request $request){
 
     return $response;
 });
+
+//Products Routes
+Route::get('/products', function(){
+    return \App\Models\Product::all();
+});
