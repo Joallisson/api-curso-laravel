@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\UserController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,3 +42,4 @@ Route::prefix('/products')->group(function(){
     Route::delete('/{id}', [ProductController::class, 'delete']);
 });
 
+Route::resource('/users', UserController::class);
