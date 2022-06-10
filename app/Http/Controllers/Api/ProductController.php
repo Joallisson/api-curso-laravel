@@ -20,12 +20,12 @@ class ProductController extends Controller
 
         $products = $this->product;
 
-        if($request->has('codition')){
-            $expressions = explode(';', $request->get('codition'));
+        if($request->has('coditions')){
+            $expressions = explode(';', $request->get('coditions'));
 
             foreach($expressions as $value){
-                $exp = explode('=', $value);
-                $products = $products->where($exp[0], $exp[1]);
+                $exp = explode(':', $value);
+                $products = $products->where($exp[0], $exp[1], $exp[2]);
             }
         }
 
