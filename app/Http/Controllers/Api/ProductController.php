@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Repository\ProductRepository;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -19,24 +20,17 @@ class ProductController extends Controller
     public function index(Request $request){
 
         $products = $this->product;
-
+        
         if($request->has('coditions')){
-            $expressions = explode(';', $request->get('coditions'));
-
-            foreach($expressions as $value){
-                $exp = explode(':', $value);
-                $products = $products->where($exp[0], $exp[1], $exp[2]);
-            }
+            $products = (new ProductRepository($products, $request))
+                            ->selectCoditions($request->get('coditions'));
         }
 
-        if ($request->has('fields')) {
-            $fields = $request->get('fields');
-            $products = $products->selectRaw($fields);
+        if($request->has('fields')){
+            $products = (new ProductRepository($products, $request))
+                            ->selectFilter($request->get('fields'));
         }
 
-        //$products = $this->product->paginate(10);
-        //$products = $this->product->all();
-        //return response()->json($products);
         return new ProductCollection($products->paginate(10));
     }
 
