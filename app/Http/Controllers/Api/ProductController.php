@@ -20,6 +20,15 @@ class ProductController extends Controller
 
         $products = $this->product;
 
+        if($request->has('codition')){
+            $expressions = explode(';', $request->get('codition'));
+
+            foreach($expressions as $value){
+                $exp = explode('=', $value);
+                $products = $products->where($exp[0], $exp[1]);
+            }
+        }
+
         if ($request->has('fields')) {
             $fields = $request->get('fields');
             $products = $products->selectRaw($fields);
