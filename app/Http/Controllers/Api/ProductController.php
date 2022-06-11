@@ -22,6 +22,7 @@ class ProductController extends Controller
         $products = $this->product;
         $productRepository = new ProductRepository($products);
 
+
         if($request->has('coditions')){
             $productRepository->selectCoditions($request->get('coditions'));
         }
