@@ -36,7 +36,7 @@ Route::get('/teste', function(Request $request){
 Route::prefix('/products')->group(function(){
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/{id}', [ProductController::class, 'show']);
-    Route::post('/', [ProductController::class, 'save'])->middleware('auth.basic');
+    Route::post('/', [ProductController::class, 'save']); //->middleware('auth.basic');
     Route::put('/', [ProductController::class, 'update']);
     Route::patch('/', [ProductController::class, 'update']);
     Route::delete('/{id}', [ProductController::class, 'delete']);
