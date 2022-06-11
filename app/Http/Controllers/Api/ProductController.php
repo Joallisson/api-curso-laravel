@@ -20,18 +20,17 @@ class ProductController extends Controller
     public function index(Request $request){
 
         $products = $this->product;
-        
+        $productRepository = new ProductRepository($products);
+
         if($request->has('coditions')){
-            $products = (new ProductRepository($products, $request))
-                            ->selectCoditions($request->get('coditions'));
+            $productRepository->selectCoditions($request->get('coditions'));
         }
 
         if($request->has('fields')){
-            $products = (new ProductRepository($products, $request))
-                            ->selectFilter($request->get('fields'));
+            $productRepository->selectFilter($request->get('fields'));
         }
 
-        return new ProductCollection($products->paginate(10));
+        return new ProductCollection($productRepository->getResult()->paginate(10));
     }
 
     public function show($id){
